@@ -12,11 +12,13 @@ class RandomChar extends Component {
         error: false,
     }
 
+
     marvelService = new MarvelService();
+
+    // marvelService = (this.onCharSelected.render);
 
     componentDidMount() {
         this.updateChar();
-        // this.timerId = setInterval(this.updateChar, 15000);
     }
 
     componentWillUnmount() {
@@ -44,7 +46,7 @@ class RandomChar extends Component {
     }
 
     updateChar = () => {
-        const id = Math.floor(Math.random() * (1011400 - 1011000) + 101101);
+        const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
         this.onCharLoading();
         this.marvelService
             .getCharacter(id)
@@ -53,11 +55,13 @@ class RandomChar extends Component {
     }
 
     render() {
+    
 
         const {char, loading, error} = this.state;
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
         const content = !(loading || error) ? <View char={char}/> : null;
+        // console.log(content, spinner, errorMessage, char, loading);
 
         return (
             <div className="randomchar">

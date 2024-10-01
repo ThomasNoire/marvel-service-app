@@ -13,6 +13,9 @@ class CharInfo extends Component {
     marvelService = new MarvelService();
 
 
+    updateChar = () => {
+
+    }
     render() {
         return (
             <div className="char__info">

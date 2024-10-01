@@ -1,5 +1,8 @@
 import './charInfo.scss';
 import {Component} from 'react';
+import Spinner from '../spinner/Spinner';
+import ErrorMessage from '../errorMessage/ErrorMessage';
+import Skeleton from '../skeleton/Skeleton'
 import thor from '../../resources/img/thor.jpeg';
 import MarvelService from '../../services/MarvelService';
 
@@ -7,27 +10,32 @@ class CharInfo extends Component {
 
     state = {
         char: {},
-        loading: true,
+        loading: false,
         error: false,
     }
     marvelService = new MarvelService();
+
+    componentDidMount() {
+        this.updateChar();
+    }
 
 
     updateChar = () => {
         const {charId} = this.props;
         if (!charId){
-            return
+            return;
         }
     // ЕСЛИ ID УЖЕ ЕСТЬ, ТО Я ДЕЛАЮ ЗАПРОС НА СЕРВЕР
+    this.onCharLoading;
 
     this.marvelService
         .getAllCharacters(charId)
-        .then()
-        .catch();
+        .then(this.onCharLoaded)
+        .catch(this.onError);
 
     }
 
-    onCharLoaded = (char) => {
+    onCharLoaded = (char) => {  
         this.setState({
             char, 
             loading: false
@@ -47,9 +55,28 @@ class CharInfo extends Component {
         })
     }
     render() {
+            const {char, loading, error} = this.setState;
+            //если вдруш у меня что-то из этого есть то я ничего не рендерою 
+            const skeleton = char || loading || error ?  null : <Skeleton/>
+            const errorMessage = error ? <ErrorMessage/> : null;
+            const spinner = loading ? <Spinner/> : null;
+            const content = !(loading || error) ? <View char={char}/> : null;
+            // console.log(skeleton);
+
+
         return (
             <div className="char__info">
-                <div className="char__basics">
+
+            </div>
+        )
+    }
+    }
+
+    const View = ({char}) => {
+
+        return (
+            <>
+            <div className="char__basics">
                     <img src={thor} alt="abyss"/>
                     <div>
                         <div className="char__info-name">thor</div>
@@ -99,11 +126,9 @@ class CharInfo extends Component {
                         Avengers (1996) #1
                     </li>
                 </ul>
-            </div>
+            </>
         )
     }
-    }
-        
-    
+
 
 export default CharInfo;

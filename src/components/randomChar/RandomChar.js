@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import Spinner from '../spinner/Spinner';
 import MarvelService from '../../services/MarvelService';
-import ErrorMessage from '../errorMessage/ErrorMessage,'
+import ErrorMessage from '../errorMessage/ErrorMessage'
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 
@@ -61,7 +61,6 @@ class RandomChar extends Component {
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
         const content = !(loading || error) ? <View char={char}/> : null;
-        // console.log(content, spinner, errorMessage, char, loading);
 
         return (
             <div className="randomchar">

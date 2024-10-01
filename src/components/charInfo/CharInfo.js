@@ -14,7 +14,37 @@ class CharInfo extends Component {
 
 
     updateChar = () => {
+        const {charId} = this.props;
+        if (!charId){
+            return
+        }
+    // ЕСЛИ ID УЖЕ ЕСТЬ, ТО Я ДЕЛАЮ ЗАПРОС НА СЕРВЕР
 
+    this.marvelService
+        .getAllCharacters(charId)
+        .then()
+        .catch();
+
+    }
+
+    onCharLoaded = (char) => {
+        this.setState({
+            char, 
+            loading: false
+        })
+    }
+
+    onCharLoading = () => {
+        this.setState({
+            loading: true
+        })
+    }
+
+    onError = () => {
+        this.setState({
+            loading: false,
+            error: true
+        })
     }
     render() {
         return (

@@ -9,7 +9,9 @@ import MarvelService from '../../services/MarvelService';
 class CharInfo extends Component {
 
     state = {
-        char: {},
+
+        // пустой обьек это какая-то сущоность
+        char: null,
         loading: false,
         error: false,
     }
@@ -19,6 +21,16 @@ class CharInfo extends Component {
         this.updateChar();
     }
 
+    componentDidUpdate(prevProps, prevSetState) {
+        if (this.props.charId !== prevProps.charId || prevSetState) {
+            this.updateChar();
+            
+        }
+            // console.log(this.updateChar);
+
+        // данный метож вызвет безконечный цикл, и неисчеслительное кол-во перерендеров приложения
+    }
+
 
     updateChar = () => {
         const {charId} = this.props;
@@ -26,7 +38,7 @@ class CharInfo extends Component {
             return;
         }
     // ЕСЛИ ID УЖЕ ЕСТЬ, ТО Я ДЕЛАЮ ЗАПРОС НА СЕРВЕР
-    this.onCharLoading;
+    this.onCharLoading();
 
     this.marvelService
         .getAllCharacters(charId)
@@ -60,13 +72,16 @@ class CharInfo extends Component {
             const skeleton = char || loading || error ?  null : <Skeleton/>
             const errorMessage = error ? <ErrorMessage/> : null;
             const spinner = loading ? <Spinner/> : null;
-            const content = !(loading || error) ? <View char={char}/> : null;
+            const content = !(loading || error || !char) ? <View char={char}/> : null;
             // console.log(skeleton);
 
 
         return (
             <div className="char__info">
-
+                {skeleton}
+                {errorMessage}
+                {spinner}
+                {content}
             </div>
         )
     }

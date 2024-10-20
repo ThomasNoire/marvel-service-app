@@ -10,6 +10,7 @@ class RandomChar extends Component {
         char: {},
         loading: true,
         error: false,
+        
     }
 
 
@@ -60,7 +61,7 @@ class RandomChar extends Component {
         this.marvelService
             .getCharacter(id)
             .then(this.onCharLoaded)
-            .catch(this.onError);
+            .catch(this.onError)
     }
 
     render() {
@@ -70,6 +71,7 @@ class RandomChar extends Component {
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
         const content = !(loading || error) ? <View char={char}/> : null;
+        // const Oncharacters = loading || erorr ? <Spinner/>
 
         return (
             <div className="randomchar">

@@ -8,7 +8,7 @@ class CharList extends Component {
 
     state = {
         charList: [],
-        loading: true,
+        loading: true   ,
         error: false
     }
     
@@ -53,7 +53,6 @@ class CharList extends Component {
                 </li>
             )
         });
-        // А эта конструкция вынесена для центровки спиннера/ошибки
         return (
             <ul className="char__grid">
                 {items}

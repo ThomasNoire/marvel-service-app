@@ -8,7 +8,7 @@ class CharList extends Component {
 
     state = {
         charList: [],
-        loading: true   ,
+        loading: true,
         error: false
     }
     
